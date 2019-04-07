@@ -39,6 +39,9 @@ pipeline {
         always {
             echo "I AM ALWAYS first"
              deleteDir()
+             mail to: 'blaisesianidev@gmail.com',
+             subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+             body: "This ${env.BUILD_URL} are build successful"
         }
         changed {
             echo "CHANGED is run second"
