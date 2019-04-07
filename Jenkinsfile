@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
+                sh 'mvn clean package'
                 sh 'mvn --version'
                 sh '''
                     echo "Multiline shell steps works too"
@@ -21,6 +22,11 @@ pipeline {
                 echo 'Deploying'
             }
         }
+        stage('No-op') {
+            steps {
+                sh 'ls'
+            }
+        }
     }
      post {
     /*
@@ -32,6 +38,7 @@ pipeline {
      */
         always {
             echo "I AM ALWAYS first"
+             deleteDir()
         }
         changed {
             echo "CHANGED is run second"
@@ -41,11 +48,17 @@ pipeline {
         }
         success {
             echo "SUCCESS, FAILURE, UNSTABLE, or ABORTED runs last"
+            mail to: 'blaisesianidev@gmail.com',
+             subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+             body: "Something is wrong with ${env.BUILD_URL}"
         }
         unstable {
           echo "SUCCESS, FAILURE, UNSTABLE, or ABORTED runs last"
         }
         failure {
+            mail to: 'blaisesianidev@gmail.com',
+             subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+             body: "Something is wrong with ${env.BUILD_URL}"
             echo "SUCCESS, FAILURE, UNSTABLE, or ABORTED runs last"
         }
     }
