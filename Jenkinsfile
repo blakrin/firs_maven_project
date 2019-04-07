@@ -48,17 +48,11 @@ pipeline {
         }
         success {
             echo "SUCCESS, FAILURE, UNSTABLE, or ABORTED runs last"
-            mail to: 'blaisesianidev@gmail.com',
-             subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-             body: "Something is wrong with ${env.BUILD_URL}"
         }
         unstable {
           echo "SUCCESS, FAILURE, UNSTABLE, or ABORTED runs last"
         }
         failure {
-            mail to: 'blaisesianidev@gmail.com',
-             subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-             body: "Something is wrong with ${env.BUILD_URL}"
             echo "SUCCESS, FAILURE, UNSTABLE, or ABORTED runs last"
         }
     }
