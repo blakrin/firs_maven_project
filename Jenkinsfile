@@ -20,6 +20,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying'
+                echo "Updating heroku master branch..."
+				sh 'heroku deploy:jar target/res-connexion-module-0.0.1-SNAPSHOT.jar --app protected-caverns-84695'
             }
         }
         stage('No-op') {
