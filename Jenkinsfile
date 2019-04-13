@@ -21,7 +21,7 @@ pipeline {
             steps {
                 echo 'Deploying'
                 echo "Updating heroku master branch..."
-		sh '/snap/bin/heroku deploy:jar target/my-app-1.0-SNAPSHOT.jar --app protected-caverns-84695'
+		sh '/snap/bin/heroku jar:deploy target/my-app-1.0-SNAPSHOT.jar --app protected-caverns-84695'
             }
         }
         stage('No-op') {
@@ -41,9 +41,7 @@ pipeline {
         always {
             echo "I AM ALWAYS first"
              deleteDir()
-             mail to: 'blaisesianidev@gmail.com',
-             subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-             body: "This ${env.BUILD_URL} are build successful"
+            
         }
         changed {
             echo "CHANGED is run second"
