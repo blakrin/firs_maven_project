@@ -21,7 +21,7 @@ pipeline {
             steps {
                 echo 'Deploying'
                 echo "Updating heroku master branch..."
-		sh '/snap/bin/heroku jar:deploy target/my-app-1.0-SNAPSHOT.jar --app protected-caverns-84695'
+		sh '/snap/bin/heroku apps'
             }
         }
         stage('No-op') {
